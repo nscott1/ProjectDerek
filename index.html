@@ -57,11 +57,11 @@
       <h1>Welcome to Derek</h1>
       
       <p class="desc">
-        Overview: You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning after your shower or when you get up.
+        Overview: You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning when you get up or after you shower.
       </p>
 
       <div class="id-warning">
-        ⚠️ <strong>IMPORTANT:</strong> You must enter your exact assigned Panelist ID (e.g., DEREK-01) every time you log in so your check-ins are recorded properly.
+        ⚠️ ⚠️ ⚠️ <strong>IMPORTANT:</strong> You must enter your exact assigned Panelist ID (e.g., DEREK-01) every time you log in so your check-ins are recorded properly.
       </div>
 
       <div class="input-group">
@@ -91,7 +91,7 @@
       <p class="desc" id="form-desc">Complete your evaluation below.</p>
       
       <div id="warning-banner" class="warning-banner hidden">
-        ⚠️ <strong>IMPORTANT:</strong> Right now we will evaluate your underarms BEFORE taking your evening shower or washing.
+        ⚠️ ⚠️ ⚠️ <strong>IMPORTANT:</strong> Right now we will evaluate your underarms BEFORE taking your evening shower or washing.
       </div>
 
       <form id="survey-form" onsubmit="submitData(event)">
@@ -105,7 +105,7 @@
       <span class="badge">Logged</span>
       <h1>Check-In Complete!</h1>
       <p class="desc" style="font-size: 19px; color: #fff; margin-top: 10px;">
-        Thank you! Your evaluation has been saved to the study database.
+        Thank you! Your evaluation has been saved to the study database. ⚠️ Please note that all adat will be deidentified. ⚠️
       </p>
       
       <div style="background: #18181b; border-left: 4px solid var(--accent); padding: 18px; border-radius: 0 12px 12px 0; font-size: 16px; color: var(--subtext); text-align: left; margin-top: 24px; line-height: 1.5;">
@@ -229,7 +229,7 @@
       partnerRatingContainer.appendChild(createChoiceGroup(
         'partnerOdorLevel', 
         '👥 Partner Odor Rating (0–4 Scale)', 
-        '(Hand your phone to your partner to select the score that best matches)',
+        '(Hand 🤝 your phone to your friend or partner to select the score that best matches)',
         ODOR_SCALE
       ));
       qArea.appendChild(partnerRatingContainer);
@@ -238,7 +238,7 @@
       const noseResetBox = document.createElement('div');
       noseResetBox.id = 'nose-reset-warning';
       noseResetBox.className = 'nose-reset-box';
-      noseResetBox.innerHTML = 'bb <strong>NOSE RESET REQUIRED:</strong> Step outside or take a breath of fresh air for 60 seconds BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
+      noseResetBox.innerHTML = 'bb <strong>NOSE RESET REQUIRED:</strong> Step outside or take a breath of fresh air for 60 seconds ⏱️ BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
       qArea.appendChild(noseResetBox);
 
       // 2. PANELIST SELF-RATING
@@ -252,7 +252,7 @@
       if (!isBaseline) {
         qArea.appendChild(createChoiceGroup(
           'cleanFeel', 
-          'How clean and balanced do your underarms feel?', 
+          'How clean and fresh do your underarms feel?', 
           '(Rate your overall underarm skin comfort and cleanliness)',
           CLEAN_SCALE
         ));
@@ -269,7 +269,7 @@
       // 3. WORKOUT & SHOWER QUESTIONS
       qArea.appendChild(createChoiceGroup(
         'lastShower', 
-        'When did you last shower or wash underarms?', 
+        ' 🚿 When did you last shower or wash underarms? 🚿 ', 
         '(Microbiome activity shifts dynamically with moisture. Shower timing helps separate product efficacy from external factors)',
         [
           { val: 'This morning', label: 'This morning' },
@@ -281,7 +281,7 @@
 
       qArea.appendChild(createChoiceGroup(
         'workout', 
-        'DID YOU EXERCISE OR SWEAT HEAVILY TODAY?', 
+        '🏃 DID YOU EXERCISE OR SWEAT HEAVILY 💧 TODAY? 🏋️ ', 
         '(Physical activity context: Microbiome activity shifts with moisture and exertion. Tracking workouts lets us isolate raw deodorant performance)',
         [
           { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
