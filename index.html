@@ -49,15 +49,15 @@
 </head>
 <body>
   <div class="container">
-    <div class="brand">DEREK</div>
+    <div class="brand">🧴 DEREK</div>
 
     <!-- STEP 1: PORTAL LOGIN & OVERALL STUDY CONTEXT -->
     <div id="step-selector" class="card">
-      <span class="badge">Sensory Study Portal</span>
+      <span class="badge">🧪 Sensory Study Portal</span>
       <h1>Welcome to Derek</h1>
       
       <p class="desc">
-        Overview: You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning when you get up or after you shower.
+        📋 <strong>Overview:</strong> You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning when you get up or after you shower.
       </p>
 
       <div class="id-warning">
@@ -65,28 +65,28 @@
       </div>
 
       <div class="input-group">
-        <label class="q-title">Panelist ID</label>
+        <label class="q-title">👤 Panelist ID</label>
         <input type="text" id="panelist-code" placeholder="e.g. DEREK-01" style="text-transform: uppercase;" autocomplete="off">
       </div>
 
       <div class="input-group">
-        <label class="q-title">Your Email Address</label>
+        <label class="q-title">✉️ Your Email Address</label>
         <div class="inline-why">(Strictly used to deliver automated check-in reminder links when your timing window opens)</div>
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
       </div>
 
       <div class="input-group">
-        <label class="q-title">Mobile Phone Number</label>
+        <label class="q-title">📱 Mobile Phone Number</label>
         <div class="inline-why">(Used for optional SMS text check-in reminders)</div>
         <input type="text" id="panelist-phone" placeholder="(555) 000-0000" autocomplete="tel">
       </div>
 
-      <button class="btn-primary" onclick="lookupNextForm()">Continue to My Check-In</button>
+      <button class="btn-primary" onclick="lookupNextForm()">Continue to My Check-In 🔑</button>
     </div>
 
     <!-- STEP 2: DYNAMIC QUESTION FORM -->
     <div id="step-form" class="card hidden">
-      <div id="form-badge" class="badge">Assessment</div>
+      <div id="form-badge" class="badge">📋 Assessment</div>
       <h1 id="form-title">Form Title</h1>
       <p class="desc" id="form-desc">Complete your evaluation below.</p>
       
@@ -96,16 +96,16 @@
 
       <form id="survey-form" onsubmit="submitData(event)">
         <div id="questions-area"></div>
-        <button type="submit" id="submit-btn" class="btn-primary">Submit Evaluation</button>
+        <button type="submit" id="submit-btn" class="btn-primary">Submit Evaluation ✅</button>
       </form>
     </div>
 
     <!-- STEP 3: SUCCESS & NEXT STEPS -->
     <div id="step-success" class="card hidden" style="text-align: center;">
-      <span class="badge">Logged</span>
+      <span class="badge">✅ Logged</span>
       <h1>Check-In Complete!</h1>
       <p class="desc" style="font-size: 19px; color: #fff; margin-top: 10px;">
-        Thank you! Your evaluation has been saved to the study database. ⚠️ Please note that all adat will be deidentified. ⚠️
+        Thank you! Your evaluation has been saved to the study database. ⚠️ Please note that all data will be deidentified. ⚠️
       </p>
       
       <div style="background: #18181b; border-left: 4px solid var(--accent); padding: 18px; border-radius: 0 12px 12px 0; font-size: 16px; color: var(--subtext); text-align: left; margin-top: 24px; line-height: 1.5;">
@@ -113,12 +113,12 @@
         You can close this window. You will receive an automated notification via email/text when your next evaluation window opens. Remember to use your assigned Panelist ID every time you log back in!
       </div>
 
-      <button class="btn-primary" onclick="location.reload()">Done</button>
+      <button class="btn-primary" onclick="location.reload()">Done 👍</button>
     </div>
   </div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0_uAQ6ol9h11XeOQHb2hj1XQ_6BLkf0k4o4OBwXI0Eq0OEJBZueIReRoh43cKceX1eg/exec'; // <--- PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0_uAQ6ol9h11XeOQHb2hj1XQ_6BLkf0k4o4OBwXI0Eq0OEJBZueIReRoh43cKceX1eg/exec';
     const SECRET_STUDY_KEY = 'derek_sec_98f23a1041bc480a9';
 
     let activeCode = '';
@@ -135,19 +135,19 @@
     ];
 
     const ODOR_SCALE = [
-      { val: "0 — Completely Odorless", label: "0 — Completely Odorless", sub: "Clean, scentless skin baseline" },
-      { val: "1 — Barely Perceptible", label: "1 — Barely Perceptible", sub: "Only detectable if trying very hard" },
-      { val: "2 — Slightly Noticeable", label: "2 — Slightly Noticeable", sub: "Mild odor starting to form" },
-      { val: "3 — Moderately Odorous", label: "3 — Moderately Odorous", sub: "Clear odor present" },
-      { val: "4 — Strongly Odorous", label: "4 — Strongly Odorous", sub: "Heavy body odor" }
+      { val: "0 — Completely Odorless", label: "🟢 0 — Completely Odorless", sub: "Clean, scentless skin baseline" },
+      { val: "1 — Barely Perceptible", label: "🟡 1 — Barely Perceptible", sub: "Only detectable if trying very hard" },
+      { val: "2 — Slightly Noticeable", label: "🟡 2 — Slightly Noticeable", sub: "Mild odor starting to form" },
+      { val: "3 — Moderately Odorous", label: "🔴 3 — Moderately Odorous", sub: "Clear odor present" },
+      { val: "4 — Strongly Odorous", label: "🔴 4 — Strongly Odorous", sub: "Heavy body odor" }
     ];
 
     const CLEAN_SCALE = [
-      { val: "1 — Not clean", label: "1 — Not clean", sub: "Odor or heavy sweat present" },
-      { val: "2 — Slightly fresh", label: "2 — Slightly fresh", sub: "" },
-      { val: "3 — Moderately fresh", label: "3 — Moderately fresh", sub: "" },
-      { val: "4 — Very fresh", label: "4 — Very fresh", sub: "" },
-      { val: "5 — Completely clean & odor-free", label: "5 — Completely clean", sub: "Natural, healthy skin baseline" }
+      { val: "1 — Not clean", label: "🔴 1 — Not clean", sub: "Odor or heavy sweat present" },
+      { val: "2 — Slightly fresh", label: "🟡 2 — Slightly fresh", sub: "" },
+      { val: "3 — Moderately fresh", label: "🟡 3 — Moderately fresh", sub: "" },
+      { val: "4 — Very fresh", label: "🟢 4 — Very fresh", sub: "" },
+      { val: "5 — Completely clean & odor-free", label: "🟢 5 — Completely clean", sub: "Natural, healthy skin baseline" }
     ];
 
     // WHITESPACE SANITIZATION HELPER
@@ -157,7 +157,6 @@
     }
 
     async function lookupNextForm() {
-      // Clean leading, trailing, and internal excess whitespace
       activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
       activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
       activePhone = cleanInput(document.getElementById('panelist-phone').value);
@@ -198,7 +197,7 @@
       if (isBaseline) {
         qArea.appendChild(createTextInput(
           'usualProduct', 
-          'What deodorant/antiperspirant did you wear today?', 
+          '🧴 What deodorant/antiperspirant did you wear today?', 
           'Brand & Product Name',
           '(We need to capture your natural end-of-day baseline with your usual deodorant/antiperspirant before starting Derek)'
         ));
@@ -207,11 +206,11 @@
       // 1. PARTNER AVAILABILITY QUESTION
       const partnerGroup = createChoiceGroup(
         'partnerAvailable', 
-        'IS SOMEONE ELSE AVAILABLE TO EVALUATE YOUR UNDERARM ODOR RIGHT NOW?', 
+        '👥 IS SOMEONE ELSE AVAILABLE TO EVALUATE YOUR UNDERARM ODOR RIGHT NOW?', 
         '(Having a 2nd person rate your underarms gives an objective, less biased verification that helps overcome self-perception bias)',
         [
-          { val: 'No', label: 'No, evaluating myself' },
-          { val: 'Yes', label: 'Yes, partner / friend available' }
+          { val: 'No', label: '👤 No, evaluating myself' },
+          { val: 'Yes', label: '👥 Yes, partner / friend available' }
         ], 
         (val) => {
           const pRatingDiv = document.getElementById('partner-rating-container');
@@ -238,13 +237,13 @@
       const noseResetBox = document.createElement('div');
       noseResetBox.id = 'nose-reset-warning';
       noseResetBox.className = 'nose-reset-box';
-      noseResetBox.innerHTML = 'bb <strong>NOSE RESET REQUIRED:</strong> Step outside or take a breath of fresh air for 60 seconds ⏱️ BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
+      noseResetBox.innerHTML = '👃 <strong>NOSE RESET REQUIRED:</strong> Step outside 🍃 or take a breath of fresh air for 60 seconds ⏱️ BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
       qArea.appendChild(noseResetBox);
 
       // 2. PANELIST SELF-RATING
       qArea.appendChild(createChoiceGroup(
         'odorLevel', 
-        'STEP OUTSIDE OR TAKE A BREATH OF FRESH AIR FOR 60 SECONDS TO RESET YOUR NOSE, THEN RATE YOUR OWN UNDERARM ODOR RIGHT NOW:', 
+        '👃 STEP OUTSIDE 🍃 OR TAKE A BREATH OF FRESH AIR FOR 60 SECONDS ⏱️ TO RESET YOUR NOSE, THEN RATE YOUR OWN UNDERARM ODOR RIGHT NOW:', 
         '(Select the option that best reflects your current underarm odor level after taking a 60-second fresh air break)',
         ODOR_SCALE
       ));
@@ -252,16 +251,16 @@
       if (!isBaseline) {
         qArea.appendChild(createChoiceGroup(
           'cleanFeel', 
-          'How clean and fresh do your underarms feel?', 
+          '🧼 How clean and fresh do your underarms feel?', 
           '(Rate your overall underarm skin comfort and cleanliness)',
           CLEAN_SCALE
         ));
         qArea.appendChild(createChoiceGroup(
           'reapply', 
-          'Do you feel the need to reapply deodorant right now?', 
+          '🧴 Do you feel the need to reapply deodorant right now?', 
           '(Helps us track product durability throughout the day)',
           [
-            { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
+            { val: 'Yes', label: '👍 Yes' }, { val: 'No', label: '👎 No' }
           ]
         ));
       }
@@ -269,26 +268,26 @@
       // 3. WORKOUT & SHOWER QUESTIONS
       qArea.appendChild(createChoiceGroup(
         'lastShower', 
-        ' 🚿 When did you last shower or wash underarms? 🚿 ', 
+        '🚿 When did you last shower or wash underarms? 🚿', 
         '(Microbiome activity shifts dynamically with moisture. Shower timing helps separate product efficacy from external factors)',
         [
-          { val: 'This morning', label: 'This morning' },
-          { val: 'Midday', label: 'Midday' },
-          { val: 'Last night', label: 'Last night' },
-          { val: 'More than 24h ago', label: 'More than 24 hours ago' }
+          { val: 'This morning', label: '☀️ This morning' },
+          { val: 'Midday', label: '🌤️ Midday' },
+          { val: 'Last night', label: '🌙 Last night' },
+          { val: 'More than 24h ago', label: '⏰ More than 24 hours ago' }
         ]
       ));
 
       qArea.appendChild(createChoiceGroup(
         'workout', 
-        '🏃 DID YOU EXERCISE OR SWEAT HEAVILY 💧 TODAY? 🏋️ ', 
+        '🏃 DID YOU EXERCISE OR SWEAT HEAVILY 💧 TODAY? 🏋️', 
         '(Physical activity context: Microbiome activity shifts with moisture and exertion. Tracking workouts lets us isolate raw deodorant performance)',
         [
-          { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
+          { val: 'Yes', label: '💦 Yes' }, { val: 'No', label: '🍃 No' }
         ]
       ));
 
-      qArea.appendChild(createTextArea('freeText', 'Anything you noticed? (Optional)', 'Notes on skin feel, texture, dry-down...'));
+      qArea.appendChild(createTextArea('freeText', '📝 Anything you noticed? (Optional)', 'Notes on skin feel, texture, dry-down...'));
     }
 
     function createChoiceGroup(name, labelText, whyText, options, onChangeCallback) {
