@@ -15,29 +15,30 @@
       --danger: #dc2626;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding: 24px 16px; }
-    .container { width: 100%; max-width: 440px; margin: auto 0; }
-    .brand { font-size: 32px; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; text-align: center; margin-bottom: 20px; color: #fff; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-    .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding: 20px 16px; font-size: 18px; }
+    .container { width: 100%; max-width: 480px; margin: auto 0; }
+    .brand { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; text-align: center; margin-bottom: 20px; color: #fff; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 20px; }
+    .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 13px; font-weight: 800; padding: 6px 14px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
     
-    .explainer-card { background: #18181b; border-left: 3px solid var(--accent); padding: 14px; border-radius: 0 10px 10px 0; font-size: 13px; color: var(--subtext); line-height: 1.5; margin-bottom: 20px; }
-    .explainer-card strong { color: #fff; }
-    .warning-banner { background: rgba(220, 38, 38, 0.15); border: 1px solid var(--danger); color: #fca5a5; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 20px; text-align: center; line-height: 1.4; }
+    .id-warning { background: rgba(37, 99, 235, 0.2); border: 2px solid var(--accent); color: #93c5fd; padding: 14px; border-radius: 12px; font-size: 16px; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
+    .explainer-card { background: #18181b; border-left: 4px solid var(--accent); padding: 16px; border-radius: 0 12px 12px 0; font-size: 16px; color: var(--subtext); line-height: 1.5; margin-top: 12px; margin-bottom: 24px; }
+    .explainer-card strong { color: #fff; font-size: 17px; display: block; margin-bottom: 4px; }
+    .warning-banner { background: rgba(220, 38, 38, 0.15); border: 2px solid var(--danger); color: #fca5a5; padding: 14px; border-radius: 12px; font-size: 16px; font-weight: 700; margin-bottom: 24px; text-align: center; line-height: 1.4; }
     
-    h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-    p.desc { color: var(--subtext); font-size: 14px; margin-bottom: 20px; line-height: 1.4; }
-    .input-group { margin-bottom: 24px; }
-    label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--subtext); margin-bottom: 10px; }
-    input[type="text"], input[type="email"], textarea { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 12px; font-size: 16px; outline: none; }
+    h1 { font-size: 26px; font-weight: 800; margin-bottom: 10px; color: #fff; }
+    p.desc { color: var(--subtext); font-size: 16px; margin-bottom: 24px; line-height: 1.5; }
+    .input-group { margin-bottom: 28px; }
+    label { display: block; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #e4e4e7; margin-bottom: 12px; }
+    input[type="text"], input[type="email"], textarea { width: 100%; background: #000; border: 2px solid var(--border); color: #fff; padding: 18px; border-radius: 14px; font-size: 18px; outline: none; }
     input:focus, textarea:focus { border-color: var(--accent); }
     
-    .btn-grid { display: flex; flex-direction: column; gap: 8px; }
-    .choice-btn { background: #000; border: 1px solid var(--border); color: var(--text); padding: 16px; border-radius: 12px; text-align: left; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; width: 100%; }
-    .choice-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
-    .choice-btn span.sub { display: block; font-size: 12px; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+    .btn-grid { display: flex; flex-direction: column; gap: 10px; }
+    .choice-btn { background: #000; border: 2px solid var(--border); color: var(--text); padding: 18px; border-radius: 14px; text-align: left; font-size: 17px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; width: 100%; }
+    .choice-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 800; }
+    .choice-btn span.sub { display: block; font-size: 14px; font-weight: 400; opacity: 0.85; margin-top: 4px; }
     
-    .btn-primary { width: 100%; background: #fff; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; margin-top: 12px; }
+    .btn-primary { width: 100%; background: #fff; color: #000; border: none; padding: 20px; border-radius: 14px; font-size: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; margin-top: 16px; }
     .btn-primary:disabled { opacity: 0.3; }
     .hidden { display: none; }
   </style>
@@ -48,17 +49,18 @@
 
     <!-- STEP 1: PORTAL LOGIN & OVERALL STUDY CONTEXT -->
     <div id="step-selector" class="card">
-      <span class="badge">Study Portal</span>
+      <span class="badge">Sensory Study Portal</span>
       <h1>Welcome to Derek</h1>
       
-      <!-- CARD #0: OVERALL STUDY EXPLAINER -->
+      <!-- CARD #0: WHAT WE ARE TESTING -->
       <div class="explainer-card">
-        <strong>🧪 Welcome to Project Derek:</strong> Over the next 2 days, you will complete 1 baseline evaluation with your usual product and 6 quick treatment check-ins. To give us the most accurate sensory data, please try to have a partner, friend, or evaluator nearby who can give an objective "sniff check" alongside your own self-rating. Every check-in takes under 60 seconds!
+        <strong>🧪 What We Are Testing & Instructions:</strong>
+        You are evaluating Cybele Microbiome Rebalancing Deodorant over a 2-day study period. Apply the product once daily in the morning to clean, dry underarms. 
       </div>
 
-      <!-- CARD #4: CONTACT INFO EXPLAINER -->
-      <div class="explainer-card">
-        <strong>📲 Why this matters:</strong> Sensory studies rely on precise timing relative to your day. We collect your email and phone number strictly to send automated check-in links right when your evaluation window opens, ensuring you never miss a checkpoint.
+      <!-- MANDATORY ID NOTICE -->
+      <div class="id-warning">
+        ⚠️ <strong>IMPORTANT:</strong> You must enter your exact assigned Panelist ID (e.g., DEREK-01) every time you log in to ensure your check-ins are recorded correctly.
       </div>
 
       <div class="input-group">
@@ -67,13 +69,18 @@
       </div>
 
       <div class="input-group">
-        <label>Your Email (For Reminders)</label>
+        <label>Your Email Address</label>
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
       </div>
 
       <div class="input-group">
-        <label>Mobile Phone Number (For Text Reminders)</label>
+        <label>Mobile Phone Number</label>
         <input type="text" id="panelist-phone" placeholder="(555) 000-0000" autocomplete="tel">
+      </div>
+
+      <div class="explainer-card">
+        <strong>📲 Reminders & Contact Info:</strong>
+        We collect your email and phone number strictly to send automated check-in links right when your evaluation window opens so you never miss a checkpoint.
       </div>
 
       <button class="btn-primary" onclick="lookupNextForm()">Continue to My Check-In</button>
@@ -83,7 +90,7 @@
     <div id="step-form" class="card hidden">
       <div id="form-badge" class="badge">Assessment</div>
       <h1 id="form-title">Form Title</h1>
-      <p class="desc" id="form-desc">Complete your self-evaluation.</p>
+      <p class="desc" id="form-desc">Complete your evaluation below.</p>
       
       <div id="warning-banner" class="warning-banner hidden">
         ⚠️ <strong>IMPORTANT:</strong> Evaluate your underarms BEFORE taking your evening shower or washing.
@@ -95,17 +102,25 @@
       </form>
     </div>
 
-    <!-- STEP 3: SUCCESS -->
+    <!-- STEP 3: SUCCESS & NEXT STEPS -->
     <div id="step-success" class="card hidden" style="text-align: center;">
-      <span class="badge">Logged</span>
-      <h1>Response Recorded</h1>
-      <p class="desc">Thank you! Your sensory assessment has been logged.</p>
+      <span class="badge">Response Recorded</span>
+      <h1>Check-In Complete!</h1>
+      <p class="desc" style="font-size: 18px; color: #fff; margin-top: 10px;">
+        Thank you! Your evaluation has been saved to the study database.
+      </p>
+      
+      <div class="explainer-card" style="text-align: left; margin-top: 20px;">
+        <strong>🕒 What Happens Next?</strong>
+        You can close this tab. You will receive an automated notification via email/text when your next scheduled evaluation window opens. Always use your assigned Panelist ID when logging back in.
+      </div>
+
       <button class="btn-primary" onclick="location.reload()">Done</button>
     </div>
   </div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0_uAQ6ol9h11XeOQHb2hj1XQ_6BLkf0k4o4OBwXI0Eq0OEJBZueIReRoh43cKceX1eg/exec'; // <--- PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+    const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; // <--- PASTE YOUR GOOGLE APPS SCRIPT URL HERE
     const SECRET_STUDY_KEY = 'derek_sec_98f23a1041bc480a9';
 
     let activeCode = '';
@@ -114,11 +129,11 @@
     let activeCheckpoint = '';
 
     const CHECKPOINT_SEQUENCE = [
-      { key: 'd0_pm', label: 'Day 0 — Evening Baseline', desc: 'Night before starting product' },
-      { key: 'd1_am', label: 'Day 1 — Morning Check-In', desc: 'Post-application baseline' },
+      { key: 'd0_pm', label: 'Day 0 — Baseline Read', desc: 'Pre-study read using your usual product' },
+      { key: 'd1_am', label: 'Day 1 — Morning Check-In', desc: 'Post-application assessment' },
       { key: 'd1_mid', label: 'Day 1 — Midday Check-In', desc: 'Afternoon freshness check' },
       { key: 'd1_pm', label: 'Day 1 — Evening Check-In', desc: 'End-of-day assessment' },
-      { key: 'd2_am', label: 'Day 2 — Morning Check-In', desc: 'Post-application baseline' },
+      { key: 'd2_am', label: 'Day 2 — Morning Check-In', desc: 'Post-application assessment' },
       { key: 'd2_mid', label: 'Day 2 — Midday Check-In', desc: 'Afternoon freshness check' },
       { key: 'd2_pm', label: 'Day 2 — Evening Check-In', desc: 'Final check-in' }
     ];
@@ -173,21 +188,16 @@
 
       document.getElementById('warning-banner').classList.toggle('hidden', !isBaseline);
       document.getElementById('form-badge').innerText = cpInfo.label;
-      document.getElementById('form-title').innerText = isBaseline ? 'Usual Product Read' : 'Derek Daily Assessment';
+      document.getElementById('form-title').innerText = isBaseline ? 'Usual Product Baseline' : 'Derek Daily Assessment';
       document.getElementById('form-desc').innerText = cpInfo.desc;
 
       if (isBaseline) {
-        // CARD #1: BASELINE EXPLAINER
-        qArea.appendChild(createExplainer('🧬 Why this matters:', 'Before starting Derek, we need to capture your natural end-of-day baseline with your usual product. Rating AT THE END OF DAY (and before an evening shower-- it\'s ok if you showered in the am! ) gives us an accurate benchmark of how your normal routine holds up at peak daily load. If someone is with you, having them rate your underarms creates a dual-verified baseline.'));
-        qArea.appendChild(createTextInput('usualProduct', 'What deodorant/antiperspirant did you wear today?', 'Brand & Product Name'));
-      } else {
-        // NOSE RESET EXPLAINER FOR DAILY CHECK-INS
-        qArea.appendChild(createExplainer('👃 Nose Reset:', 'Step outside or take a breath of fresh air for 60 seconds before rating. Constant exposure to your own smell causes olfactory fatigue.'));
+        const usualInput = createTextInput('usualProduct', 'What deodorant/antiperspirant did you wear today?', 'Brand & Product Name');
+        qArea.appendChild(usualInput);
+        qArea.appendChild(createExplainer('🧬 Why this matters:', 'Before starting Derek, we need to capture your baseline using your usual product. If starting mid-day, record your current state anyway—our system will automatically track your timing relative to your evening shower.'));
       }
 
-      // CARD #2: PARTNER CHECK EXPLAINER & DYNAMIC LOGIC
-      qArea.appendChild(createExplainer('👥 Why this matters:', 'Olfactory fatigue makes it hard to smell yourself accurately. If someone is with you right now, you can optionally have them give an objective rating. If you are alone, no worries at all—your own self-assessment is all we need!'));
-      
+      // 1. PARTNER AVAILABILITY
       const partnerGroup = createChoiceGroup('partnerAvailable', 'Is someone else available to evaluate your underarm odor right now?', [
         { val: 'No', label: 'No, evaluating myself' },
         { val: 'Yes', label: 'Yes, partner / friend available' }
@@ -202,10 +212,12 @@
       partnerRatingContainer.id = 'partner-rating-container';
       partnerRatingContainer.className = 'hidden';
       partnerRatingContainer.appendChild(createChoiceGroup('partnerOdorLevel', '👥 Partner Odor Rating (0–4 Scale)', ODOR_SCALE));
+      partnerRatingContainer.appendChild(createExplainer('👥 Partner Rating Value:', 'Having a second person rate your underarms provides an objective, unbiased verification that removes self-perception bias.'));
       qArea.appendChild(partnerRatingContainer);
 
-      // PANELIST SELF-RATING
+      // 2. PANELIST SELF-RATING
       qArea.appendChild(createChoiceGroup('odorLevel', 'Rate your own underarm odor right now', ODOR_SCALE));
+      qArea.appendChild(createExplainer('👃 Nose Reset Required for Self-Evaluation:', 'If you are evaluating yourself, step outside or take a breath of fresh air for 60 seconds before smelling. Constant exposure to your own body scent causes olfactory fatigue, making it hard to judge accurately!'));
       
       if (!isBaseline) {
         qArea.appendChild(createChoiceGroup('cleanFeel', 'How clean and balanced do your underarms feel?', CLEAN_SCALE));
@@ -214,9 +226,7 @@
         ]));
       }
 
-      // CARD #3: WORKOUT / SHOWER EXPLAINER
-      qArea.appendChild(createExplainer('⏱️ Why this matters:', 'Microbiome activity shifts dynamically with moisture and physical exertion. Tracking recent showers and workouts/sports lets us separate raw product performance from external physical variables.'));
-
+      // 3. WORKOUT & SHOWER QUESTIONS
       qArea.appendChild(createChoiceGroup('lastShower', 'When did you last shower or wash underarms?', [
         { val: 'This morning', label: 'This morning' },
         { val: 'Midday', label: 'Midday' },
@@ -228,7 +238,9 @@
         { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
       ]));
 
-      qArea.appendChild(createTextArea('freeText', 'Anything you noticed? (Optional)', 'Notes on texture, skin feel, dry-down...'));
+      qArea.appendChild(createExplainer('⏱️ Physical Activity Context:', 'Microbiome activity shifts dynamically with moisture and physical exertion. Tracking showers and workouts lets us separate product efficacy from external physical variables.'));
+
+      qArea.appendChild(createTextArea('freeText', 'Anything you noticed? (Optional)', 'Notes on skin feel, texture, dry-down...'));
     }
 
     function createExplainer(title, text) {
