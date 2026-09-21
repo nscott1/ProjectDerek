@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEREK — Sensory Study</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #141417;
+      --border: #27272a;
+      --text: #f4f4f5;
+      --subtext: #a1a1aa;
+      --accent: #2563eb;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding: 24px 16px; }
+    .container { width: 100%; max-width: 440px; margin: auto 0; }
+    .brand { font-size: 32px; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; text-align: center; margin-bottom: 24px; color: #fff; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
+    .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .warning-banner { background: rgba(220, 38, 38, 0.15); border: 1px solid var(--danger); color: #fca5a5; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 20px; text-align: center; line-height: 1.4; }
+    h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    p.desc { color: var(--subtext); font-size: 14px; margin-bottom: 20px; line-height: 1.4; }
+    .input-group { margin-bottom: 24px; }
+    label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--subtext); margin-bottom: 10px; }
+    input[type="text"], textarea { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 12px; font-size: 16px; outline: none; }
+    input[type="text"]:focus, textarea:focus { border-color: var(--accent); }
+    
+    .btn-grid { display: flex; flex-direction: column; gap: 8px; }
+    .choice-btn { background: #000; border: 1px solid var(--border); color: var(--text); padding: 16px; border-radius: 12px; text-align: left; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .choice-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+    .choice-btn span.sub { display: block; font-size: 12px; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+    
+    .btn-primary { width: 100%; background: #fff; color: #000; border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; margin-top: 12px; }
+    .btn-primary:disabled { opacity: 0.3; }
+    .hidden { display: none; }
+    .back-link { display: block; text-align: center; color: var(--subtext); font-size: 13px; margin-top: 16px; text-decoration: underline; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">DEREK</div>
+
+    <!-- STEP 1: CODE & CHECKPOINT SELECTION -->
+    <div id="step-selector" class="card">
+      <span class="badge">Study Portal</span>
+      <h1>Check-In</h1>
+      <p class="desc">Enter your assigned code and tap your current checkpoint window.</p>
+      
+      <div class="input-group">
+        <label>Panelist ID</label>
+        <input type="text" id="panelist-code" placeholder="e.g. DEREK-01" style="text-transform: uppercase;" autocomplete="off">
+      </div>
+
+      <div class="input-group">
+        <label>Select Checkpoint</label>
+        <div class="btn-grid">
+          <button class="choice-btn" onclick="selectCheckpoint('d0_pm')">
+            <div>DAY 0 — Evening Baseline<span class="sub">Night before starting product (BEFORE SHOWER)</span></div>
+          </button>
+          <button class="choice-btn" onclick="selectCheckpoint('d1_am')">DAY 1 — Morning Check-In</button>
+          <button class="choice-btn" onclick="selectCheckpoint('d1_mid')">DAY 1 — Midday Check-In</button>
+          <button class="choice-btn" onclick="selectCheckpoint('d1_pm')">DAY 1 — Evening Check-In</button>
+          <button class="choice-btn" onclick="selectCheckpoint('d2_am')">DAY 2 — Morning Check-In</button>
+          <button class="choice-btn" onclick="selectCheckpoint('d2_mid')">DAY 2 — Midday Check-In</button>
+          <button class="choice-btn" onclick="selectCheckpoint('d2_pm')">DAY 2 — Evening Check-In</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: QUESTION FORM -->
+    <div id="step-form" class="card hidden">
+      <div id="form-badge" class="badge">Assessment</div>
+      <h1 id="form-title">Form Title</h1>
+      <p class="desc" id="form-desc">Complete your self-evaluation.</p>
+      
+      <div id="warning-banner" class="warning-banner hidden">
+        ⚠️ <strong>IMPORTANT:</strong> Evaluate your underarms BEFORE taking your evening shower or washing.
+      </div>
+
+      <form id="survey-form" onsubmit="submitData(event)">
+        <div id="questions-area"></div>
+        <button type="submit" id="submit-btn" class="btn-primary">Submit Evaluation</button>
+        <span class="back-link" onclick="backToSelector()">← Back to Checkpoints</span>
+      </form>
+    </div>
+
+    <!-- STEP 3: SUCCESS -->
+    <div id="step-success" class="card hidden" style="text-align: center;">
+      <span class="badge">Logged</span>
+      <h1>Response Recorded</h1>
+      <p class="desc">Thank you! Your sensory assessment has been saved to Project Derek.</p>
+      <button class="btn-primary" onclick="location.reload()">Done</button>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0_uAQ6ol9h11XeOQHb2hj1XQ_6BLkf0k4o4OBwXI0Eq0OEJBZueIReRoh43cKceX1eg/exec'; 
+    const SECRET_STUDY_KEY = 'derek_sec_98f23a1041bc480a9';
+
+    let activeCode = '';
+    let activeCheckpoint = '';
+
+    const ODOR_SCALE = [
+      { val: "0 — Completely Odorless", label: "0 — Completely Odorless", sub: "Clean, scentless skin baseline" },
+      { val: "1 — Barely Perceptible", label: "1 — Barely Perceptible", sub: "Only detectable if trying very hard" },
+      { val: "2 — Slightly Noticeable", label: "2 — Slightly Noticeable", sub: "Mild odor starting to form" },
+      { val: "3 — Moderately Odorous", label: "3 — Moderately Odorous", sub: "Clear odor present" },
+      { val: "4 — Strongly Odorous", label: "4 — Strongly Odorous", sub: "Heavy body odor" }
+    ];
+
+    const CLEAN_SCALE = [
+      { val: "1 — Not clean", label: "1 — Not clean", sub: "Odor or heavy sweat present" },
+      { val: "2 — Slightly fresh", label: "2 — Slightly fresh", sub: "" },
+      { val: "3 — Moderately fresh", label: "3 — Moderately fresh", sub: "" },
+      { val: "4 — Very fresh", label: "4 — Very fresh", sub: "" },
+      { val: "5 — Completely clean & odor-free", label: "5 — Completely clean", sub: "Natural, healthy skin baseline" }
+    ];
+
+    function selectCheckpoint(cpKey) {
+      activeCode = document.getElementById('panelist-code').value.trim().toUpperCase();
+      if (!activeCode) {
+        alert('Please enter your Panelist ID first.');
+        return;
+      }
+      activeCheckpoint = cpKey;
+      
+      document.getElementById('step-selector').classList.add('hidden');
+      document.getElementById('step-form').classList.remove('hidden');
+      buildForm();
+    }
+
+    function buildForm() {
+      const qArea = document.getElementById('questions-area');
+      qArea.innerHTML = '';
+      const isBaseline = (activeCheckpoint === 'd0_pm');
+
+      document.getElementById('warning-banner').classList.toggle('hidden', !isBaseline);
+      document.getElementById('form-badge').innerText = isBaseline ? 'Day 0 Baseline' : activeCheckpoint.replace('_', ' ').toUpperCase();
+      document.getElementById('form-title').innerText = isBaseline ? 'Usual Product Read' : 'Derek Daily Assessment';
+      document.getElementById('form-desc').innerText = isBaseline ? 'Evaluate your usual product performance before shower.' : 'Rate your current underarm feel.';
+
+      if (isBaseline) {
+        qArea.appendChild(createTextInput('usualProduct', 'What deodorant/antiperspirant did you wear today?', 'Brand & Product Name'));
+      }
+
+      qArea.appendChild(createChoiceGroup('odorLevel', 'Rate your underarm odor right now', ODOR_SCALE));
+      
+      if (!isBaseline) {
+        qArea.appendChild(createChoiceGroup('cleanFeel', 'How clean and balanced do your underarms feel?', CLEAN_SCALE));
+        qArea.appendChild(createChoiceGroup('reapply', 'Do you feel the need to reapply right now?', [
+          { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
+        ]));
+      }
+
+      qArea.appendChild(createChoiceGroup('lastShower', 'When did you last shower or wash underarms?', [
+        { val: 'This morning', label: 'This morning' },
+        { val: 'Midday', label: 'Midday' },
+        { val: 'Last night', label: 'Last night' },
+        { val: 'More than 24h ago', label: 'More than 24 hours ago' }
+      ]));
+
+      qArea.appendChild(createChoiceGroup('workout', 'Did you exercise or sweat heavily today?', [
+        { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
+      ]));
+
+      qArea.appendChild(createTextArea('freeText', 'Anything you noticed? (Optional)', 'Notes on texture, skin feel, dry-down...'));
+    }
+
+    function createChoiceGroup(name, labelText, options) {
+      const group = document.createElement('div');
+      group.className = 'input-group';
+      group.innerHTML = `<label>${labelText}</label><input type="hidden" name="${name}" required>`;
+      
+      const grid = document.createElement('div');
+      grid.className = 'btn-grid';
+
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'choice-btn';
+        btn.innerHTML = `<div>${opt.label}${opt.sub ? `<span class="sub">${opt.sub}</span>` : ''}</div>`;
+        btn.onclick = () => {
+          grid.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          group.querySelector(`input[name="${name}"]`).value = opt.val;
+        };
+        grid.appendChild(btn);
+      });
+
+      group.appendChild(grid);
+      return group;
+    }
+
+    function createTextInput(name, labelText, placeholder) {
+      const div = document.createElement('div');
+      div.className = 'input-group';
+      div.innerHTML = `<label>${labelText}</label><input type="text" name="${name}" placeholder="${placeholder}" required>`;
+      return div;
+    }
+
+    function createTextArea(name, labelText, placeholder) {
+      const div = document.createElement('div');
+      div.className = 'input-group';
+      div.innerHTML = `<label>${labelText}</label><textarea name="${name}" rows="3" placeholder="${placeholder}"></textarea>`;
+      return div;
+    }
+
+    function backToSelector() {
+      document.getElementById('step-form').classList.add('hidden');
+      document.getElementById('step-selector').classList.remove('hidden');
+    }
+
+    async function submitData(e) {
+      e.preventDefault();
+      const subBtn = document.getElementById('submit-btn');
+      subBtn.disabled = true;
+      subBtn.innerText = 'Logging...';
+
+      const formData = new FormData(e.target);
+      const payload = {
+        apiKey: SECRET_STUDY_KEY,
+        panelistCode: activeCode,
+        checkpoint: activeCheckpoint,
+        usualProduct: formData.get('usualProduct') || '',
+        odorLevel: formData.get('odorLevel') || '',
+        cleanFeel: formData.get('cleanFeel') || '',
+        reapply: formData.get('reapply') || '',
+        lastShower: formData.get('lastShower') || '',
+        workout: formData.get('workout') || '',
+        freeText: formData.get('freeText') || ''
+      };
+
+      try {
+        await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+        document.getElementById('step-form').classList.add('hidden');
+        document.getElementById('step-success').classList.remove('hidden');
+      } catch (err) {
+        alert('Error submitting evaluation. Please try again.');
+        subBtn.disabled = false;
+        subBtn.innerText = 'Submit Evaluation';
+      }
+    }
+  </script>
+</body>
+</html>
