@@ -49,7 +49,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="brand">DEREK</div>
+    <div class="brand">🧴 DEREK</div>
 
     <!-- STEP 1: PORTAL LOGIN & OVERALL STUDY CONTEXT -->
     <div id="step-selector" class="card">
@@ -248,22 +248,22 @@
         ODOR_SCALE
       ));
       
-      if (!isBaseline) {
-        qArea.appendChild(createChoiceGroup(
-          'cleanFeel', 
-          '🧼 How clean and fresh do your underarms feel?', 
-          '(Rate your overall underarm skin comfort and cleanliness)',
-          CLEAN_SCALE
-        ));
-        qArea.appendChild(createChoiceGroup(
-          'reapply', 
-          '🧴 Do you feel the need to reapply deodorant right now?', 
-          '(Helps us track product durability throughout the day)',
-          [
-            { val: 'Yes', label: '👍 Yes' }, { val: 'No', label: '👎 No' }
-          ]
-        ));
-      }
+      // FRESHNESS & REAPPLICATION QUESTIONS (NOW INCLUDED ON BASELINE + DAILY)
+      qArea.appendChild(createChoiceGroup(
+        'cleanFeel', 
+        '🧼 How clean and fresh do your underarms feel right now?', 
+        '(Rate your overall underarm skin comfort and cleanliness with the product you are currently wearing)',
+        CLEAN_SCALE
+      ));
+      
+      qArea.appendChild(createChoiceGroup(
+        'reapply', 
+        '🧴 Do you feel the need to reapply deodorant right now?', 
+        '(Helps us track product durability throughout the day)',
+        [
+          { val: 'Yes', label: '👍 Yes' }, { val: 'No', label: '👎 No' }
+        ]
+      ));
 
       // 3. WORKOUT & SHOWER QUESTIONS
       qArea.appendChild(createChoiceGroup(
