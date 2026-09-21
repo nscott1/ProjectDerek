@@ -17,23 +17,22 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; padding: 20px 16px; font-size: 19px; }
     .container { width: 100%; max-width: 500px; margin: auto 0; }
-    .brand { font-size: 42px; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; text-align: center; margin-bottom: 24px; color: #fff; }
+    .brand { font-size: 44px; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; text-align: center; margin-bottom: 24px; color: #fff; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 20px; }
     .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 14px; font-weight: 800; padding: 6px 14px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
     
-    .id-warning { background: rgba(37, 99, 235, 0.2); border: 2px solid var(--accent); color: #93c5fd; padding: 16px; border-radius: 14px; font-size: 17px; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
+    .id-warning { background: rgba(37, 99, 235, 0.2); border: 2px solid var(--accent); color: #93c5fd; padding: 18px; border-radius: 14px; font-size: 18px; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
     
-    .inline-why { font-size: 15px; color: var(--subtext); line-height: 1.4; margin-bottom: 14px; font-weight: 400; text-transform: none; }
-    .inline-why strong { color: #93c5fd; }
+    .inline-why { font-size: 16px; color: #93c5fd; line-height: 1.4; margin-top: 6px; margin-bottom: 14px; font-weight: 400; text-transform: none; }
     
-    .nose-reset-box { background: rgba(220, 38, 38, 0.15); border: 2px solid var(--danger); color: #fca5a5; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 700; margin-bottom: 18px; line-height: 1.4; }
-    .warning-banner { background: rgba(220, 38, 38, 0.15); border: 2px solid var(--danger); color: #fca5a5; padding: 16px; border-radius: 14px; font-size: 17px; font-weight: 800; margin-bottom: 24px; text-align: center; line-height: 1.4; }
+    .nose-reset-box { background: rgba(220, 38, 38, 0.18); border: 2px solid var(--danger); color: #fca5a5; padding: 18px; border-radius: 14px; font-size: 17px; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
+    .warning-banner { background: rgba(220, 38, 38, 0.18); border: 2px solid var(--danger); color: #fca5a5; padding: 18px; border-radius: 14px; font-size: 18px; font-weight: 800; margin-bottom: 24px; text-align: center; line-height: 1.4; }
     
     h1 { font-size: 28px; font-weight: 900; margin-bottom: 12px; color: #fff; }
-    p.desc { color: var(--subtext); font-size: 17px; margin-bottom: 24px; line-height: 1.5; }
+    p.desc { color: var(--subtext); font-size: 18px; margin-bottom: 24px; line-height: 1.5; }
     
     .input-group { margin-bottom: 32px; }
-    label.q-title { display: block; font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+    label.q-title { display: block; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.3; }
     
     input[type="text"], input[type="email"], textarea { width: 100%; background: #000; border: 2px solid var(--border); color: #fff; padding: 20px; border-radius: 14px; font-size: 19px; outline: none; margin-top: 8px; }
     input:focus, textarea:focus { border-color: var(--accent); }
@@ -72,13 +71,13 @@
 
       <div class="input-group">
         <label class="q-title">Your Email Address</label>
-        <div class="inline-why"><strong>Why?</strong> Strictly used to deliver automated check-in reminder links when your timing window opens.</div>
+        <div class="inline-why">(Strictly used to deliver automated check-in reminder links when your timing window opens)</div>
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
       </div>
 
       <div class="input-group">
         <label class="q-title">Mobile Phone Number</label>
-        <div class="inline-why"><strong>Why?</strong> Used for optional SMS text check-in reminders.</div>
+        <div class="inline-why">(Used for optional SMS text check-in reminders)</div>
         <input type="text" id="panelist-phone" placeholder="(555) 000-0000" autocomplete="tel">
       </div>
 
@@ -196,15 +195,15 @@
           'usualProduct', 
           'What deodorant/antiperspirant did you wear today?', 
           'Brand & Product Name',
-          'We need to capture your natural end-of-day baseline with your usual routine before starting Derek.'
+          '(We need to capture your natural end-of-day baseline with your usual deodorant/antiperspirant before starting Derek)'
         ));
       }
 
-      // 1. PARTNER AVAILABILITY QUESTION
+      // 1. PARTNER AVAILABILITY QUESTION (INTEGRATED EXPLAINER)
       const partnerGroup = createChoiceGroup(
         'partnerAvailable', 
-        'Is someone else available to evaluate your underarm odor right now?', 
-        'Having a partner or friend rate your underarms provides an objective, dual-verified benchmark.',
+        'IS SOMEONE ELSE AVAILABLE TO EVALUATE YOUR UNDERARM ODOR RIGHT NOW?', 
+        '(Having a 2nd person rate your underarms gives an objective, less biased verification that helps overcome self-perception bias)',
         [
           { val: 'No', label: 'No, evaluating myself' },
           { val: 'Yes', label: 'Yes, partner / friend available' }
@@ -225,7 +224,7 @@
       partnerRatingContainer.appendChild(createChoiceGroup(
         'partnerOdorLevel', 
         '👥 Partner Odor Rating (0–4 Scale)', 
-        'Hand your phone to your partner to select the score that best matches.',
+        '(Hand your phone to your partner to select the score that best matches)',
         ODOR_SCALE
       ));
       qArea.appendChild(partnerRatingContainer);
@@ -234,14 +233,14 @@
       const noseResetBox = document.createElement('div');
       noseResetBox.id = 'nose-reset-warning';
       noseResetBox.className = 'nose-reset-box';
-      noseResetBox.innerHTML = '👃 <strong>Nose Reset Required:</strong> Constant exposure to your own body scent causes olfactory fatigue! Please step outside or take a breath of fresh air for 60 seconds BEFORE smelling and rating yourself below.';
+      noseResetBox.innerHTML = '👃 <strong>NOSE RESET REQUIRED:</strong> Step outside or take a breath of fresh air for 60 seconds BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue.';
       qArea.appendChild(noseResetBox);
 
       // 2. PANELIST SELF-RATING
       qArea.appendChild(createChoiceGroup(
         'odorLevel', 
-        'Rate your own underarm odor right now', 
-        'Select the option that best reflects your current underarm odor level.',
+        'RATE YOUR OWN UNDERARM ODOR RIGHT NOW:', 
+        '(Select the option that best reflects your current underarm odor level after your 60-second nose reset)',
         ODOR_SCALE
       ));
       
@@ -249,13 +248,13 @@
         qArea.appendChild(createChoiceGroup(
           'cleanFeel', 
           'How clean and balanced do your underarms feel?', 
-          'Rate your overall underarm skin comfort and cleanliness.',
+          '(Rate your overall underarm skin comfort and cleanliness)',
           CLEAN_SCALE
         ));
         qArea.appendChild(createChoiceGroup(
           'reapply', 
           'Do you feel the need to reapply deodorant right now?', 
-          'Helps us track product durability throughout the day.',
+          '(Helps us track product durability throughout the day)',
           [
             { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
           ]
@@ -266,7 +265,7 @@
       qArea.appendChild(createChoiceGroup(
         'lastShower', 
         'When did you last shower or wash underarms?', 
-        'Microbiome activity shifts with moisture. Shower timing helps separate product efficacy from external factors.',
+        '(Microbiome activity shifts dynamically with moisture. Shower timing helps separate product efficacy from external factors)',
         [
           { val: 'This morning', label: 'This morning' },
           { val: 'Midday', label: 'Midday' },
@@ -277,8 +276,8 @@
 
       qArea.appendChild(createChoiceGroup(
         'workout', 
-        'Did you exercise or sweat heavily today?', 
-        'Tracking physical exertion lets us analyze performance under physical stress.',
+        'DID YOU EXERCISE OR SWEAT HEAVILY TODAY?', 
+        '(Physical activity context: Microbiome activity shifts with moisture and exertion. Tracking workouts lets us isolate raw deodorant performance)',
         [
           { val: 'Yes', label: 'Yes' }, { val: 'No', label: 'No' }
         ]
@@ -292,7 +291,7 @@
       group.className = 'input-group';
       group.innerHTML = `
         <label class="q-title">${labelText}</label>
-        ${whyText ? `<div class="inline-why"><strong>Why?</strong> ${whyText}</div>` : ''}
+        ${whyText ? `<div class="inline-why">${whyText}</div>` : ''}
         <input type="hidden" name="${name}">
       `;
       const grid = document.createElement('div');
@@ -321,7 +320,7 @@
       div.className = 'input-group';
       div.innerHTML = `
         <label class="q-title">${labelText}</label>
-        ${whyText ? `<div class="inline-why"><strong>Why?</strong> ${whyText}</div>` : ''}
+        ${whyText ? `<div class="inline-why">${whyText}</div>` : ''}
         <input type="text" name="${name}" placeholder="${placeholder}">
       `;
       return div;
