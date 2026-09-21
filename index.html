@@ -156,6 +156,18 @@
       return val.toString().trim().replace(/\s+/g, ' ');
     }
 
+    // SCROLL RESET HELPER
+    function scrollToTop() {
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }, 50);
+    }
+
     async function lookupNextForm() {
       activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
       activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
@@ -175,17 +187,15 @@
 
         activeCheckpoint = state.nextCheckpoint;
         
-        // 1. Build form first into DOM
+        // 1. Build form DOM first
         buildForm();
 
         // 2. Hide login screen & show form screen
         document.getElementById('step-selector').classList.add('hidden');
         document.getElementById('step-form').classList.remove('hidden');
 
-        // 3. Force scroll reset to absolute top after rendering
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        // 3. Force scroll reset
+        scrollToTop();
 
       } catch (err) {
         alert('Could not lookup progress. Please verify your connection.');
@@ -379,9 +389,7 @@
         document.getElementById('step-form').classList.add('hidden');
         document.getElementById('step-success').classList.remove('hidden');
         
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        scrollToTop();
       } catch (err) {
         alert('Error submitting evaluation. Please try again.');
         subBtn.disabled = false;
