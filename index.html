@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DEREK — Sensory Testing Portal</title>
+  <title>DEREK — Sensory Portal</title>
   <style>
     :root {
       --bg: #09090b; 
@@ -49,7 +49,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="brand"> DEREK</div>
+    <div class="brand">DEREK</div>
 
     <!-- STEP 1: PORTAL LOGIN & OVERALL STUDY CONTEXT -->
     <div id="step-selector" class="card">
@@ -176,6 +176,10 @@
         activeCheckpoint = state.nextCheckpoint;
         document.getElementById('step-selector').classList.add('hidden');
         document.getElementById('step-form').classList.remove('hidden');
+        
+        // AUTO SCROLL TO TOP OF SCREEN
+        window.scrollTo(0, 0);
+
         buildForm();
       } catch (err) {
         alert('Could not lookup progress. Please verify your connection.');
@@ -197,7 +201,7 @@
       if (isBaseline) {
         qArea.appendChild(createTextInput(
           'usualProduct', 
-          '🧴 What deodorant/antiperspirant did you wear today?', 
+          'What deodorant/antiperspirant did you wear today?', 
           'Brand & Product Name',
           '(We need to capture your natural end-of-day baseline with your usual deodorant/antiperspirant before starting Derek)'
         ));
@@ -248,7 +252,7 @@
         ODOR_SCALE
       ));
       
-      // FRESHNESS & REAPPLICATION QUESTIONS (NOW INCLUDED ON BASELINE + DAILY)
+      // FRESHNESS & REAPPLICATION QUESTIONS (INCLUDED ON BASELINE + DAILY)
       qArea.appendChild(createChoiceGroup(
         'cleanFeel', 
         '🧼 How clean and fresh do your underarms feel right now?', 
@@ -258,7 +262,7 @@
       
       qArea.appendChild(createChoiceGroup(
         'reapply', 
-        '🧴 Do you feel the need to reapply deodorant right now?', 
+        'Do you feel the need to reapply deodorant right now?', 
         '(Helps us track product durability throughout the day)',
         [
           { val: 'Yes', label: '👍 Yes' }, { val: 'No', label: '👎 No' }
@@ -368,10 +372,13 @@
         await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
         document.getElementById('step-form').classList.add('hidden');
         document.getElementById('step-success').classList.remove('hidden');
+        
+        // AUTO SCROLL TO TOP OF SUCCESS SCREEN
+        window.scrollTo(0, 0);
       } catch (err) {
         alert('Error submitting evaluation. Please try again.');
         subBtn.disabled = false;
-        subBtn.innerText = 'Submit Evaluation';
+        subBtn.innerText = 'Submit Evaluation ✅';
       }
     }
   </script>
