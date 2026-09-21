@@ -57,7 +57,7 @@
       <h1>Welcome to Derek</h1>
       
       <p class="desc">
-        Overview: You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning after your shower or when you get up.
+        You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning after your shower or when you get up.
       </p>
 
       <div class="id-warning">
@@ -118,7 +118,7 @@
   </div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0_uAQ6ol9h11XeOQHb2hj1XQ_6BLkf0k4o4OBwXI0Eq0OEJBZueIReRoh43cKceX1eg/exec'; // <--- PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+    const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; // <--- PASTE YOUR GOOGLE APPS SCRIPT URL HERE
     const SECRET_STUDY_KEY = 'derek_sec_98f23a1041bc480a9';
 
     let activeCode = '';
@@ -128,10 +128,8 @@
 
     const CHECKPOINT_SEQUENCE = [
       { key: 'd0_pm', label: 'Day 0 — Baseline Read', desc: 'Pre-study read using your usual deodorant/antiperspirant' },
-      { key: 'd1_am', label: 'Day 1 — Morning Check-In', desc: 'Post-application assessment' },
       { key: 'd1_mid', label: 'Day 1 — Midday Check-In', desc: 'Afternoon freshness check' },
       { key: 'd1_pm', label: 'Day 1 — Evening Check-In', desc: 'End-of-day assessment' },
-      { key: 'd2_am', label: 'Day 2 — Morning Check-In', desc: 'Post-application assessment' },
       { key: 'd2_mid', label: 'Day 2 — Midday Check-In', desc: 'Afternoon freshness check' },
       { key: 'd2_pm', label: 'Day 2 — Evening Check-In', desc: 'Final check-in' }
     ];
@@ -152,10 +150,17 @@
       { val: "5 — Completely clean & odor-free", label: "5 — Completely clean", sub: "Natural, healthy skin baseline" }
     ];
 
+    // WHITESPACE SANITIZATION HELPER
+    function cleanInput(val) {
+      if (!val) return '';
+      return val.toString().trim().replace(/\s+/g, ' ');
+    }
+
     async function lookupNextForm() {
-      activeCode = document.getElementById('panelist-code').value.trim().toUpperCase();
-      activeEmail = document.getElementById('panelist-email').value.trim();
-      activePhone = document.getElementById('panelist-phone').value.trim();
+      // Clean leading, trailing, and internal excess whitespace
+      activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
+      activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
+      activePhone = cleanInput(document.getElementById('panelist-phone').value);
 
       if (!activeCode) return alert('Please enter your Panelist ID.');
       if (!activeEmail) return alert('Please enter your Email address.');
@@ -199,7 +204,7 @@
         ));
       }
 
-      // 1. PARTNER AVAILABILITY QUESTION (INTEGRATED EXPLAINER)
+      // 1. PARTNER AVAILABILITY QUESTION
       const partnerGroup = createChoiceGroup(
         'partnerAvailable', 
         'IS SOMEONE ELSE AVAILABLE TO EVALUATE YOUR UNDERARM ODOR RIGHT NOW?', 
@@ -217,7 +222,7 @@
       );
       qArea.appendChild(partnerGroup);
 
-      // PARTNER RATING CONTAINER (HIDDEN UNTIL "YES" IS SELECTED)
+      // PARTNER RATING CONTAINER
       const partnerRatingContainer = document.createElement('div');
       partnerRatingContainer.id = 'partner-rating-container';
       partnerRatingContainer.className = 'hidden';
@@ -229,14 +234,14 @@
       ));
       qArea.appendChild(partnerRatingContainer);
 
-      // NOSE RESET WARNING (EXPLICIT INSTRUCTIONS BEFORE SELF-EVALUATION)
+      // NOSE RESET WARNING
       const noseResetBox = document.createElement('div');
       noseResetBox.id = 'nose-reset-warning';
       noseResetBox.className = 'nose-reset-box';
-      noseResetBox.innerHTML = '👃 <strong>NOSE RESET REQUIRED:</strong> Step outside or take a breath of fresh air for 60 seconds BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
+      noseResetBox.innerHTML = 'bb <strong>NOSE RESET REQUIRED:</strong> Step outside or take a breath of fresh air for 60 seconds BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
       qArea.appendChild(noseResetBox);
 
-      // 2. PANELIST SELF-RATING (EXPLICIT STEP-OUTSIDE QUESTION TITLE)
+      // 2. PANELIST SELF-RATING
       qArea.appendChild(createChoiceGroup(
         'odorLevel', 
         'STEP OUTSIDE OR TAKE A BREATH OF FRESH AIR FOR 60 SECONDS TO RESET YOUR NOSE, THEN RATE YOUR OWN UNDERARM ODOR RIGHT NOW:', 
@@ -349,7 +354,7 @@
         email: activeEmail,
         phone: activePhone,
         checkpoint: activeCheckpoint,
-        usualProduct: formData.get('usualProduct') || '',
+        usualProduct: cleanInput(formData.get('usualProduct')),
         partnerAvailable: formData.get('partnerAvailable') || 'No',
         partnerOdorLevel: formData.get('partnerOdorLevel') || '',
         odorLevel: formData.get('odorLevel') || '',
@@ -357,7 +362,7 @@
         reapply: formData.get('reapply') || '',
         lastShower: formData.get('lastShower') || '',
         workout: formData.get('workout') || '',
-        freeText: formData.get('freeText') || ''
+        freeText: cleanInput(formData.get('freeText'))
       };
 
       try {
