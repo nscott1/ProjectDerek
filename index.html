@@ -66,7 +66,7 @@
 
       <div class="input-group">
         <label class="q-title">👤 Panelist ID</label>
-        <input type="text" id="panelist-code" placeholder="e.g. DEREK-01" style="text-transform: uppercase;" autocomplete="off">
+        <input type="text" id="panelist-code" placeholder="e.g. DEREK-01" style="text-transform: uppercase;" autocomplete="off" oninput="autoLoadSavedProfile()">
       </div>
 
       <div class="input-group">
@@ -75,8 +75,8 @@
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
       </div>
 
-      <!-- DEMOGRAPHICS SECTION -->
-      <div style="border-top: 1px solid var(--border); margin-top: 28px; padding-top: 24px;">
+      <!-- DEMOGRAPHICS SECTION (HIDDEN ON REPEAT VISITS IF SAVED) -->
+      <div id="demographics-section" style="border-top: 1px solid var(--border); margin-top: 28px; padding-top: 24px;">
         <h3 style="color:#fff; font-size:20px; font-weight:800; margin-bottom:16px;">📊 Demographic Profiling</h3>
 
         <div class="input-group">
@@ -161,7 +161,6 @@
       { key: 'd2_pm', label: 'Day 2 — Evening Check-In', desc: 'Final check-in' }
     ];
 
-    // UNIFIED 5-POINT ODOR SCALE (0–4) FOR ALL CHECKPOINTS & BASELINE PERCEPTION
     const ODOR_SCALE = [
       { val: "0 — Completely Odorless", label: "🟢 0 — Completely Odorless", sub: "Clean, scentless skin baseline" },
       { val: "1 — Barely Perceptible", label: "🟡 1 — Barely Perceptible", sub: "Only detectable if trying very hard" },
@@ -178,13 +177,11 @@
       { val: "5 — Completely clean & odor-free", label: "🟢 5 — Completely clean", sub: "Natural, healthy skin baseline" }
     ];
 
-    // WHITESPACE SANITIZATION HELPER
     function cleanInput(val) {
       if (!val) return '';
       return val.toString().trim().replace(/\s+/g, ' ');
     }
 
-    // SCROLL RESET HELPER
     function scrollToTop() {
       window.scrollTo(0, 0);
       document.body.scrollTop = 0;
@@ -195,6 +192,37 @@
         document.documentElement.scrollTop = 0;
       }, 50);
     }
+
+    // AUTO-FILL & HIDE DEMOGRAPHICS IF SAVED PREVIOUSLY
+    function autoLoadSavedProfile() {
+      const codeInput = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
+      if (!codeInput) return;
+
+      const saved = localStorage.getItem('derek_profile_' + codeInput);
+      if (saved) {
+        try {
+          const profile = JSON.parse(saved);
+          if (profile.email) document.getElementById('panelist-email').value = profile.email;
+          if (profile.age) document.getElementById('panelist-age').value = profile.age;
+          if (profile.sex) document.getElementById('panelist-sex').value = profile.sex;
+          if (profile.ethnicity) document.getElementById('panelist-ethnicity').value = profile.ethnicity;
+          
+          // Hide demographics section if profile exists
+          document.getElementById('demographics-section').classList.add('hidden');
+        } catch (e) {}
+      } else {
+        document.getElementById('demographics-section').classList.remove('hidden');
+      }
+    }
+
+    // AUTO-RESTORE LAST SAVED CODE ON PAGE LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      const lastCode = localStorage.getItem('derek_last_code');
+      if (lastCode) {
+        document.getElementById('panelist-code').value = lastCode;
+        autoLoadSavedProfile();
+      }
+    });
 
     async function lookupNextForm() {
       const btn = document.querySelector('#step-selector .btn-primary');
@@ -208,7 +236,15 @@
       if (!activeCode) return alert('Please enter your Panelist ID.');
       if (!activeEmail) return alert('Please enter your Email address.');
 
-      // LOCK BUTTON & DISPLAY WAITING MESSAGE
+      // SAVE PROFILE LOCALLY FOR REPEAT VISITS
+      localStorage.setItem('derek_last_code', activeCode);
+      localStorage.setItem('derek_profile_' + activeCode, JSON.stringify({
+        email: activeEmail,
+        age: activeAge,
+        sex: activeSex,
+        ethnicity: activeEthnicity
+      }));
+
       if (btn) {
         btn.disabled = true;
         btn.style.opacity = '0.6';
@@ -259,7 +295,6 @@
       document.getElementById('form-title').innerText = isBaseline ? 'Usual Deodorant Baseline' : 'Derek Daily Assessment';
       document.getElementById('form-desc').innerText = cpInfo.desc;
 
-      // BASELINE QUESTIONS (DAY 0 ONLY)
       if (isBaseline) {
         qArea.appendChild(createTextInput(
           'usualProduct', 
@@ -268,7 +303,6 @@
           '(We need to capture your natural end-of-day baseline with your usual deodorant/antiperspirant before starting Derek)'
         ));
 
-        // 5-POINT GENERAL ODOR PERCEPTION BASELINE QUESTION
         qArea.appendChild(createChoiceGroup(
           'generalOdorBaseline', 
           '👃 IN GENERAL, HOW WOULD YOU RATE YOUR NATURAL UNDERARM ODOR LEVEL BY THE END OF A TYPICAL DAY WITHOUT STRONG PRODUCTS?', 
@@ -276,7 +310,6 @@
           ODOR_SCALE
         ));
 
-        // 0–5 GENERAL ACTIVITY LEVEL BASELINE QUESTION
         qArea.appendChild(createChoiceGroup(
           'generalActivityBaseline', 
           '🏃 IN GENERAL, HOW WOULD YOU RATE YOUR TYPICAL DAILY PHYSICAL ACTIVITY LEVEL?', 
@@ -292,7 +325,6 @@
         ));
       }
 
-      // 1. PARTNER AVAILABILITY QUESTION
       const partnerGroup = createChoiceGroup(
         'partnerAvailable', 
         '👥 IS SOMEONE ELSE AVAILABLE TO EVALUATE YOUR UNDERARM ODOR RIGHT NOW?', 
@@ -310,7 +342,6 @@
       );
       qArea.appendChild(partnerGroup);
 
-      // PARTNER RATING CONTAINER
       const partnerRatingContainer = document.createElement('div');
       partnerRatingContainer.id = 'partner-rating-container';
       partnerRatingContainer.className = 'hidden';
@@ -322,14 +353,12 @@
       ));
       qArea.appendChild(partnerRatingContainer);
 
-      // NOSE RESET WARNING
       const noseResetBox = document.createElement('div');
       noseResetBox.id = 'nose-reset-warning';
       noseResetBox.className = 'nose-reset-box';
       noseResetBox.innerHTML = '👃 <strong>NOSE RESET REQUIRED:</strong> Step outside 🍃 or take a breath of fresh air for 60 seconds ⏱️ BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
       qArea.appendChild(noseResetBox);
 
-      // 2. PANELIST SELF-RATING
       qArea.appendChild(createChoiceGroup(
         'odorLevel', 
         '👃 STEP OUTSIDE 🍃 OR TAKE A BREATH OF FRESH AIR FOR 60 SECONDS ⏱️ TO RESET YOUR NOSE, THEN RATE YOUR OWN UNDERARM ODOR RIGHT NOW:', 
@@ -337,7 +366,6 @@
         ODOR_SCALE
       ));
       
-      // FRESHNESS & REAPPLICATION QUESTIONS
       qArea.appendChild(createChoiceGroup(
         'cleanFeel', 
         '🧼 How clean and fresh do your underarms feel right now?', 
@@ -354,7 +382,6 @@
         ]
       ));
 
-      // 3. WORKOUT & SHOWER QUESTIONS
       qArea.appendChild(createChoiceGroup(
         'lastShower', 
         '🚿 When did you last shower or wash underarms? 🚿', 
