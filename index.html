@@ -75,8 +75,7 @@
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
       </div>
 
-
-      <button class="btn-primary" onclick="lookupNextForm()">Continue to My Check-In 🔑</button>
+      <button type="button" class="btn-primary" onclick="lookupNextForm()">Continue to My Check-In 🔑</button>
     </div>
 
     <!-- STEP 2: DYNAMIC QUESTION FORM -->
@@ -105,10 +104,10 @@
       
       <div style="background: #18181b; border-left: 4px solid var(--accent); padding: 18px; border-radius: 0 12px 12px 0; font-size: 16px; color: var(--subtext); text-align: left; margin-top: 24px; line-height: 1.5;">
         <strong style="color: #fff; font-size: 18px; display: block; margin-bottom: 6px;">🕒 What Happens Next?</strong>
-        You can close this window. You will receive an automated notification via email/text when your next evaluation window opens. Remember to use your assigned Panelist ID every time you log back in!
+        You can close this window. You will receive an automated notification via email when your next evaluation window opens. Remember to use your assigned Panelist ID every time you log back in!
       </div>
 
-      <button class="btn-primary" onclick="location.reload()">Done 👍</button>
+      <button type="button" class="btn-primary" onclick="location.reload()">Done 👍</button>
     </div>
   </div>
 
@@ -118,7 +117,6 @@
 
     let activeCode = '';
     let activeEmail = '';
-    let activePhone = '';
     let activeCheckpoint = '';
 
     const CHECKPOINT_SEQUENCE = [
@@ -164,12 +162,20 @@
     }
 
     async function lookupNextForm() {
+      const btn = document.querySelector('#step-selector .btn-primary');
+      
       activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
       activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
-      
 
       if (!activeCode) return alert('Please enter your Panelist ID.');
       if (!activeEmail) return alert('Please enter your Email address.');
+
+      // LOCK BUTTON & DISPLAY WAITING MESSAGE
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        btn.innerText = 'Checking progress... (may take a moment) ⌛';
+      }
 
       try {
         const res = await fetch(`${SCRIPT_URL}?action=getState&code=${encodeURIComponent(activeCode)}`);
@@ -177,23 +183,30 @@
         
         if (state.completedAll) {
           alert('You have completed all scheduled check-ins for Project Derek. Thank you!');
+          if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.innerText = 'Continue to My Check-In 🔑';
+          }
           return;
         }
 
         activeCheckpoint = state.nextCheckpoint;
         
-        // 1. Build form DOM first
         buildForm();
 
-        // 2. Hide login screen & show form screen
         document.getElementById('step-selector').classList.add('hidden');
         document.getElementById('step-form').classList.remove('hidden');
 
-        // 3. Force scroll reset
         scrollToTop();
 
       } catch (err) {
-        alert('Could not lookup progress. Please verify your connection.');
+        alert('Connection timed out connecting to server. Please wait a moment and click again.');
+        if (btn) {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.innerText = 'Continue to My Check-In 🔑';
+        }
       }
     }
 
@@ -358,15 +371,18 @@
     async function submitData(e) {
       e.preventDefault();
       const subBtn = document.getElementById('submit-btn');
-      subBtn.disabled = true;
-      subBtn.innerText = 'Logging...';
+      if (subBtn) {
+        subBtn.disabled = true;
+        subBtn.style.opacity = '0.6';
+        subBtn.innerText = 'Logging evaluation... (may take a moment) ⌛';
+      }
 
       const formData = new FormData(e.target);
       const payload = {
         apiKey: SECRET_STUDY_KEY,
         panelistCode: activeCode,
         email: activeEmail,
-        phone: activePhone,
+        phone: '',
         checkpoint: activeCheckpoint,
         usualProduct: cleanInput(formData.get('usualProduct')),
         partnerAvailable: formData.get('partnerAvailable') || 'No',
@@ -387,8 +403,11 @@
         scrollToTop();
       } catch (err) {
         alert('Error submitting evaluation. Please try again.');
-        subBtn.disabled = false;
-        subBtn.innerText = 'Submit Evaluation ✅';
+        if (subBtn) {
+          subBtn.disabled = false;
+          subBtn.style.opacity = '1';
+          subBtn.innerText = 'Submit Evaluation ✅';
+        }
       }
     }
   </script>
