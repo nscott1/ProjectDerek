@@ -275,6 +275,21 @@
           '(This establishes your biological baseline odor tendency on our standard 5-point scale)',
           ODOR_SCALE
         ));
+
+        // 0–5 GENERAL ACTIVITY LEVEL BASELINE QUESTION
+        qArea.appendChild(createChoiceGroup(
+          'generalActivityBaseline', 
+          '🏃 IN GENERAL, HOW WOULD YOU RATE YOUR TYPICAL DAILY PHYSICAL ACTIVITY LEVEL?', 
+          '(0 = Completely sedentary/desk day, 5 = Intense daily training/heavy manual labor. Helps us contextualize your baseline sweat dynamics)',
+          [
+            { val: "0 — Sedentary", label: "🛋️ 0 — Sedentary", sub: "Desk work, sitting most of the day" },
+            { val: "1 — Light Activity", label: "🚶 1 — Light Activity", sub: "Casual walking, light household chores" },
+            { val: "2 — Moderate Activity", label: "🚴 2 — Moderate Activity", sub: "Brisk walking, light exercise 1–2x/week" },
+            { val: "3 — Active", label: "🏃 3 — Active", sub: "Regular workouts, active on feet daily" },
+            { val: "4 — Very Active", label: "🏋️ 4 — Very Active", sub: "Daily vigorous exercise or physical job" },
+            { val: "5 — Extreme Activity", label: "⚡ 5 — Extreme Activity", sub: "Heavy endurance training or intense manual labor" }
+          ]
+        ));
       }
 
       // 1. PARTNER AVAILABILITY QUESTION
@@ -435,6 +450,7 @@
         checkpoint: activeCheckpoint,
         usualProduct: cleanInput(formData.get('usualProduct')),
         generalOdorBaseline: formData.get('generalOdorBaseline') || '',
+        generalActivityBaseline: formData.get('generalActivityBaseline') || '',
         partnerAvailable: formData.get('partnerAvailable') || 'No',
         partnerOdorLevel: formData.get('partnerOdorLevel') || '',
         odorLevel: formData.get('odorLevel') || '',
