@@ -34,8 +34,8 @@
     .input-group { margin-bottom: 32px; }
     label.q-title { display: block; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.3; }
     
-    input[type="text"], input[type="email"], textarea { width: 100%; background: #000; border: 2px solid var(--border); color: #fff; padding: 20px; border-radius: 14px; font-size: 19px; outline: none; margin-top: 8px; }
-    input:focus, textarea:focus { border-color: var(--accent); }
+    input[type="text"], input[type="email"], select, textarea { width: 100%; background: #000; border: 2px solid var(--border); color: #fff; padding: 20px; border-radius: 14px; font-size: 19px; outline: none; margin-top: 8px; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
     
     .btn-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
     .choice-btn { background: #000; border: 2px solid var(--border); color: var(--text); padding: 20px; border-radius: 14px; text-align: left; font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.15s ease; width: 100%; }
@@ -51,13 +51,13 @@
   <div class="container">
     <div class="brand">DEREK</div>
 
-    <!-- STEP 1: PORTAL LOGIN & OVERALL STUDY CONTEXT -->
+    <!-- STEP 1: PORTAL LOGIN, DEMOGRAPHICS & CONSENT -->
     <div id="step-selector" class="card">
       <span class="badge">🧪 Sensory Study Portal</span>
       <h1>Welcome to Derek</h1>
       
       <p class="desc">
-        📋 <strong>Overview:</strong> You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm, rubbing it in each morning when you get up or after you shower.
+        📋 <strong>Overview:</strong> You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm each morning after showering (or when you get up), before starting your day.
       </p>
 
       <div class="id-warning">
@@ -71,11 +71,42 @@
 
       <div class="input-group">
         <label class="q-title">✉️ Your Email Address</label>
-        <div class="inline-why">(Strictly used to deliver automated check-in reminder links when your timing window opens)</div>
+        <div class="inline-why">(Used to send automated check-in reminder links)</div>
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
       </div>
 
-      <button type="button" class="btn-primary" onclick="lookupNextForm()">Continue to My Check-In 🔑</button>
+      <!-- DEMOGRAPHICS SECTION -->
+      <div style="border-top: 1px solid var(--border); margin-top: 28px; padding-top: 24px;">
+        <h3 style="color:#fff; font-size:20px; font-weight:800; margin-bottom:16px;">📊 Demographic Profiling</h3>
+
+        <div class="input-group">
+          <label class="q-title">🎂 Age</label>
+          <input type="text" id="panelist-age" placeholder="e.g. 34">
+        </div>
+
+        <div class="input-group">
+          <label class="q-title">🧬 Biological Sex</label>
+          <div class="inline-why">(Required to evaluate metabolic, endocrine, and skin physiology factors)</div>
+          <select id="panelist-sex">
+            <option value="">Select Biological Sex...</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label class="q-title">🌍 Race / Ethnicity</label>
+          <input type="text" id="panelist-ethnicity" placeholder="e.g. Hispanic / Latino, Caucasian, Asian, etc.">
+        </div>
+      </div>
+
+      <!-- DATA CONSENT DISCLAIMER -->
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); padding: 16px; border-radius: 12px; font-size: 14px; color: var(--subtext); line-height: 1.4; margin-top: 20px;">
+        🔒 <strong>Voluntary Participation & Data Consent:</strong> Participation in this study is completely voluntary. By entering your details and continuing into the study portal, you consent to the collection, deidentification, and use of your evaluation data for study research and product optimization purposes. You may discontinue participation at any time.
+      </div>
+
+      <button type="button" class="btn-primary" onclick="lookupNextForm()" style="margin-top: 24px;">Continue to My Check-In 🔑</button>
     </div>
 
     <!-- STEP 2: DYNAMIC QUESTION FORM -->
@@ -117,6 +148,9 @@
 
     let activeCode = '';
     let activeEmail = '';
+    let activeAge = '';
+    let activeSex = '';
+    let activeEthnicity = '';
     let activeCheckpoint = '';
 
     const CHECKPOINT_SEQUENCE = [
@@ -127,6 +161,7 @@
       { key: 'd2_pm', label: 'Day 2 — Evening Check-In', desc: 'Final check-in' }
     ];
 
+    // UNIFIED 5-POINT ODOR SCALE (0–4) FOR ALL CHECKPOINTS & BASELINE PERCEPTION
     const ODOR_SCALE = [
       { val: "0 — Completely Odorless", label: "🟢 0 — Completely Odorless", sub: "Clean, scentless skin baseline" },
       { val: "1 — Barely Perceptible", label: "🟡 1 — Barely Perceptible", sub: "Only detectable if trying very hard" },
@@ -166,6 +201,9 @@
       
       activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
       activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
+      activeAge = cleanInput(document.getElementById('panelist-age').value);
+      activeSex = cleanInput(document.getElementById('panelist-sex').value);
+      activeEthnicity = cleanInput(document.getElementById('panelist-ethnicity').value);
 
       if (!activeCode) return alert('Please enter your Panelist ID.');
       if (!activeEmail) return alert('Please enter your Email address.');
@@ -221,13 +259,21 @@
       document.getElementById('form-title').innerText = isBaseline ? 'Usual Deodorant Baseline' : 'Derek Daily Assessment';
       document.getElementById('form-desc').innerText = cpInfo.desc;
 
-      // BASELINE USUAL DEODORANT QUESTION
+      // BASELINE QUESTIONS (DAY 0 ONLY)
       if (isBaseline) {
         qArea.appendChild(createTextInput(
           'usualProduct', 
           'What deodorant/antiperspirant did you wear today?', 
           'Brand & Product Name',
           '(We need to capture your natural end-of-day baseline with your usual deodorant/antiperspirant before starting Derek)'
+        ));
+
+        // 5-POINT GENERAL ODOR PERCEPTION BASELINE QUESTION
+        qArea.appendChild(createChoiceGroup(
+          'generalOdorBaseline', 
+          '👃 IN GENERAL, HOW WOULD YOU RATE YOUR NATURAL UNDERARM ODOR LEVEL BY THE END OF A TYPICAL DAY WITHOUT STRONG PRODUCTS?', 
+          '(This establishes your biological baseline odor tendency on our standard 5-point scale)',
+          ODOR_SCALE
         ));
       }
 
@@ -383,8 +429,12 @@
         panelistCode: activeCode,
         email: activeEmail,
         phone: '',
+        age: activeAge,
+        sex: activeSex,
+        ethnicity: activeEthnicity,
         checkpoint: activeCheckpoint,
         usualProduct: cleanInput(formData.get('usualProduct')),
+        generalOdorBaseline: formData.get('generalOdorBaseline') || '',
         partnerAvailable: formData.get('partnerAvailable') || 'No',
         partnerOdorLevel: formData.get('partnerOdorLevel') || '',
         odorLevel: formData.get('odorLevel') || '',
