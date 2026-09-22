@@ -166,7 +166,7 @@
     async function lookupNextForm() {
       activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
       activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
-      activePhone = cleanInput(document.getElementById('panelist-phone').value);
+      
 
       if (!activeCode) return alert('Please enter your Panelist ID.');
       if (!activeEmail) return alert('Please enter your Email address.');
