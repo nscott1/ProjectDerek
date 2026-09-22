@@ -22,9 +22,7 @@
     .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 14px; font-weight: 800; padding: 6px 14px; border-radius: 100px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
     
     .id-warning { background: rgba(37, 99, 235, 0.2); border: 2px solid var(--accent); color: #93c5fd; padding: 18px; border-radius: 14px; font-size: 18px; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
-    
     .inline-why { font-size: 16px; color: #93c5fd; line-height: 1.4; margin-top: 6px; margin-bottom: 14px; font-weight: 400; text-transform: none; }
-    
     .nose-reset-box { background: rgba(220, 38, 38, 0.18); border: 2px solid var(--danger); color: #fca5a5; padding: 18px; border-radius: 14px; font-size: 17px; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
     .warning-banner { background: rgba(220, 38, 38, 0.18); border: 2px solid var(--danger); color: #fca5a5; padding: 18px; border-radius: 14px; font-size: 18px; font-weight: 800; margin-bottom: 24px; text-align: center; line-height: 1.4; }
     
@@ -51,54 +49,28 @@
   <div class="container">
     <div class="brand">DEREK</div>
 
-    <!-- STEP 1: PORTAL LOGIN, DEMOGRAPHICS & CONSENT -->
+    <!-- STEP 1: PORTAL LOGIN & CONSENT ONLY -->
     <div id="step-selector" class="card">
       <span class="badge">🧪 Sensory Study Portal</span>
       <h1>Welcome to Derek</h1>
       
       <p class="desc">
-        📋 <strong>Overview:</strong> You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm each morning after showering (or when you get up), before starting your day.
+        📋 <strong>Overview:</strong> You will be evaluating our <strong>DEREK DEODORANT</strong> over a 2-day study period. Apply 2 pumps of the product under each arm each morning after showering (or when you get up), before starting your day[cite: 2].
       </p>
 
       <div class="id-warning">
-        ⚠️ ⚠️ ⚠️ <strong>IMPORTANT:</strong> You must enter your exact assigned Panelist ID (e.g., DEREK-01) every time you log in so your check-ins are recorded properly.
+        ⚠️ ⚠️ ⚠️ <strong>IMPORTANT:</strong> You must enter your exact assigned Panelist ID (e.g., DEREK-01) every time you log in so your check-ins are recorded properly[cite: 2].
       </div>
 
       <div class="input-group">
         <label class="q-title">👤 Panelist ID</label>
-        <input type="text" id="panelist-code" placeholder="e.g. DEREK-01" style="text-transform: uppercase;" autocomplete="off" oninput="autoLoadSavedProfile()">
+        <input type="text" id="panelist-code" placeholder="e.g. DEREK-01" style="text-transform: uppercase;" autocomplete="off">
       </div>
 
       <div class="input-group">
         <label class="q-title">✉️ Your Email Address</label>
-        <div class="inline-why">(Used to send automated check-in reminder links)</div>
+        <div class="inline-why">(Used to send automated check-in reminder links)[cite: 2]</div>
         <input type="email" id="panelist-email" placeholder="name@example.com" autocomplete="email">
-      </div>
-
-      <!-- DEMOGRAPHICS SECTION (HIDDEN ON REPEAT VISITS IF SAVED) -->
-      <div id="demographics-section" style="border-top: 1px solid var(--border); margin-top: 28px; padding-top: 24px;">
-        <h3 style="color:#fff; font-size:20px; font-weight:800; margin-bottom:16px;">📊 Demographic Profiling</h3>
-
-        <div class="input-group">
-          <label class="q-title">🎂 Age</label>
-          <input type="text" id="panelist-age" placeholder="e.g. 34">
-        </div>
-
-        <div class="input-group">
-          <label class="q-title">🧬 Biological Sex</label>
-          <div class="inline-why">(Required to evaluate metabolic, endocrine, and skin physiology factors)</div>
-          <select id="panelist-sex">
-            <option value="">Select Biological Sex...</option>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-            <option value="Prefer not to say">Prefer not to say</option>
-          </select>
-        </div>
-
-        <div class="input-group">
-          <label class="q-title">🌍 Race / Ethnicity</label>
-          <input type="text" id="panelist-ethnicity" placeholder="e.g. Hispanic / Latino, Caucasian, Asian, etc.">
-        </div>
       </div>
 
       <!-- DATA CONSENT DISCLAIMER -->
@@ -116,7 +88,7 @@
       <p class="desc" id="form-desc">Complete your evaluation below.</p>
       
       <div id="warning-banner" class="warning-banner hidden">
-        ⚠️ ⚠️ ⚠️ <strong>IMPORTANT:</strong> Right now we will evaluate your underarms BEFORE taking your evening shower or washing.
+        ⚠️ ⚠️ ⚠️ <strong>IMPORTANT:</strong> Right now we will evaluate your underarms BEFORE taking your evening shower or washing[cite: 2].
       </div>
 
       <form id="survey-form" onsubmit="submitData(event)">
@@ -135,7 +107,7 @@
       
       <div style="background: #18181b; border-left: 4px solid var(--accent); padding: 18px; border-radius: 0 12px 12px 0; font-size: 16px; color: var(--subtext); text-align: left; margin-top: 24px; line-height: 1.5;">
         <strong style="color: #fff; font-size: 18px; display: block; margin-bottom: 6px;">🕒 What Happens Next?</strong>
-        You can close this window. You will receive an automated notification via email when your next evaluation window opens. Remember to use your assigned Panelist ID every time you log back in!
+        You can close this window. You will receive an automated notification via email when your next evaluation window opens. Remember to use your assigned Panelist ID every time you log back in[cite: 2]!
       </div>
 
       <button type="button" class="btn-primary" onclick="location.reload()">Done 👍</button>
@@ -148,9 +120,6 @@
 
     let activeCode = '';
     let activeEmail = '';
-    let activeAge = '';
-    let activeSex = '';
-    let activeEthnicity = '';
     let activeCheckpoint = '';
 
     const CHECKPOINT_SEQUENCE = [
@@ -177,6 +146,7 @@
       { val: "5 — Completely clean & odor-free", label: "🟢 5 — Completely clean", sub: "Natural, healthy skin baseline" }
     ];
 
+    // WHITESPACE SANITIZATION HELPER
     function cleanInput(val) {
       if (!val) return '';
       return val.toString().trim().replace(/\s+/g, ' ');
@@ -193,34 +163,11 @@
       }, 50);
     }
 
-    // AUTO-FILL & HIDE DEMOGRAPHICS IF SAVED PREVIOUSLY
-    function autoLoadSavedProfile() {
-      const codeInput = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
-      if (!codeInput) return;
-
-      const saved = localStorage.getItem('derek_profile_' + codeInput);
-      if (saved) {
-        try {
-          const profile = JSON.parse(saved);
-          if (profile.email) document.getElementById('panelist-email').value = profile.email;
-          if (profile.age) document.getElementById('panelist-age').value = profile.age;
-          if (profile.sex) document.getElementById('panelist-sex').value = profile.sex;
-          if (profile.ethnicity) document.getElementById('panelist-ethnicity').value = profile.ethnicity;
-          
-          // Hide demographics section if profile exists
-          document.getElementById('demographics-section').classList.add('hidden');
-        } catch (e) {}
-      } else {
-        document.getElementById('demographics-section').classList.remove('hidden');
-      }
-    }
-
-    // AUTO-RESTORE LAST SAVED CODE ON PAGE LOAD
+    // AUTO-FILL PREVIOUS EMAIL IF STORED IN BROWSER
     window.addEventListener('DOMContentLoaded', () => {
-      const lastCode = localStorage.getItem('derek_last_code');
-      if (lastCode) {
-        document.getElementById('panelist-code').value = lastCode;
-        autoLoadSavedProfile();
+      const savedEmail = localStorage.getItem('derek_user_email');
+      if (savedEmail) {
+        document.getElementById('panelist-email').value = savedEmail;
       }
     });
 
@@ -229,21 +176,12 @@
       
       activeCode = cleanInput(document.getElementById('panelist-code').value).toUpperCase();
       activeEmail = cleanInput(document.getElementById('panelist-email').value).toLowerCase();
-      activeAge = cleanInput(document.getElementById('panelist-age').value);
-      activeSex = cleanInput(document.getElementById('panelist-sex').value);
-      activeEthnicity = cleanInput(document.getElementById('panelist-ethnicity').value);
 
       if (!activeCode) return alert('Please enter your Panelist ID.');
       if (!activeEmail) return alert('Please enter your Email address.');
 
-      // SAVE PROFILE LOCALLY FOR REPEAT VISITS
-      localStorage.setItem('derek_last_code', activeCode);
-      localStorage.setItem('derek_profile_' + activeCode, JSON.stringify({
-        email: activeEmail,
-        age: activeAge,
-        sex: activeSex,
-        ethnicity: activeEthnicity
-      }));
+      // SAVE EMAIL FOR CONVENIENCE ON REPEAT VISITS
+      localStorage.setItem('derek_user_email', activeEmail);
 
       if (btn) {
         btn.disabled = true;
@@ -295,7 +233,33 @@
       document.getElementById('form-title').innerText = isBaseline ? 'Usual Deodorant Baseline' : 'Derek Daily Assessment';
       document.getElementById('form-desc').innerText = cpInfo.desc;
 
+      // DEMOGRAPHIC PROFILING SECTION (DAY 0 BASELINE ONLY)
       if (isBaseline) {
+        const demoHeader = document.createElement('div');
+        demoHeader.style.cssText = 'border-bottom: 1px solid var(--border); margin-bottom: 24px; padding-bottom: 16px;';
+        demoHeader.innerHTML = '<h3 style="color:#fff; font-size:20px; font-weight:800; margin-bottom:6px;">📊 Demographic Profiling</h3><p style="color:var(--subtext); font-size:15px;">This information is collected once to contextualize your baseline readout.</p>';
+        qArea.appendChild(demoHeader);
+
+        qArea.appendChild(createTextInput('age', '🎂 Age', 'e.g. 34'));
+
+        qArea.appendChild(createSelectInput(
+          'sex', 
+          '🧬 Biological Sex', 
+          '(Required to evaluate metabolic, endocrine, and skin physiology factors)',
+          [
+            { val: 'Female', label: 'Female' },
+            { val: 'Male', label: 'Male' },
+            { val: 'Prefer not to say', label: 'Prefer not to say' }
+          ]
+        ));
+
+        qArea.appendChild(createTextInput('ethnicity', '🌍 Race / Ethnicity', 'e.g. Hispanic / Latino, Caucasian, Asian, etc.'));
+
+        const divider = document.createElement('div');
+        divider.style.cssText = 'border-top: 1px solid var(--border); margin: 32px 0;';
+        qArea.appendChild(divider);
+
+        // USUAL PRODUCT & GENERAL BASELINES
         qArea.appendChild(createTextInput(
           'usualProduct', 
           'What deodorant/antiperspirant did you wear today?', 
@@ -325,6 +289,7 @@
         ));
       }
 
+      // 1. PARTNER AVAILABILITY QUESTION
       const partnerGroup = createChoiceGroup(
         'partnerAvailable', 
         '👥 IS SOMEONE ELSE AVAILABLE TO EVALUATE YOUR UNDERARM ODOR RIGHT NOW?', 
@@ -342,6 +307,7 @@
       );
       qArea.appendChild(partnerGroup);
 
+      // PARTNER RATING CONTAINER
       const partnerRatingContainer = document.createElement('div');
       partnerRatingContainer.id = 'partner-rating-container';
       partnerRatingContainer.className = 'hidden';
@@ -353,12 +319,14 @@
       ));
       qArea.appendChild(partnerRatingContainer);
 
+      // NOSE RESET WARNING
       const noseResetBox = document.createElement('div');
       noseResetBox.id = 'nose-reset-warning';
       noseResetBox.className = 'nose-reset-box';
       noseResetBox.innerHTML = '👃 <strong>NOSE RESET REQUIRED:</strong> Step outside 🍃 or take a breath of fresh air for 60 seconds ⏱️ BEFORE smelling yourself! Constant exposure to your own body scent causes olfactory fatigue (nasal blindness), so taking a 60-second fresh air break lets your nose reset to give an accurate score.';
       qArea.appendChild(noseResetBox);
 
+      // 2. PANELIST SELF-RATING
       qArea.appendChild(createChoiceGroup(
         'odorLevel', 
         '👃 STEP OUTSIDE 🍃 OR TAKE A BREATH OF FRESH AIR FOR 60 SECONDS ⏱️ TO RESET YOUR NOSE, THEN RATE YOUR OWN UNDERARM ODOR RIGHT NOW:', 
@@ -366,6 +334,7 @@
         ODOR_SCALE
       ));
       
+      // FRESHNESS & REAPPLICATION QUESTIONS
       qArea.appendChild(createChoiceGroup(
         'cleanFeel', 
         '🧼 How clean and fresh do your underarms feel right now?', 
@@ -382,6 +351,7 @@
         ]
       ));
 
+      // 3. WORKOUT & SHOWER QUESTIONS
       qArea.appendChild(createChoiceGroup(
         'lastShower', 
         '🚿 When did you last shower or wash underarms? 🚿', 
@@ -446,6 +416,21 @@
       return div;
     }
 
+    function createSelectInput(name, labelText, whyText, options) {
+      const div = document.createElement('div');
+      div.className = 'input-group';
+      let optionsHtml = `<option value="">Select option...</option>`;
+      options.forEach(opt => {
+        optionsHtml += `<option value="${opt.val}">${opt.label}</option>`;
+      });
+      div.innerHTML = `
+        <label class="q-title">${labelText}</label>
+        ${whyText ? `<div class="inline-why">${whyText}</div>` : ''}
+        <select name="${name}">${optionsHtml}</select>
+      `;
+      return div;
+    }
+
     function createTextArea(name, labelText, placeholder) {
       const div = document.createElement('div');
       div.className = 'input-group';
@@ -471,9 +456,9 @@
         panelistCode: activeCode,
         email: activeEmail,
         phone: '',
-        age: activeAge,
-        sex: activeSex,
-        ethnicity: activeEthnicity,
+        age: cleanInput(formData.get('age')),
+        sex: cleanInput(formData.get('sex')),
+        ethnicity: cleanInput(formData.get('ethnicity')),
         checkpoint: activeCheckpoint,
         usualProduct: cleanInput(formData.get('usualProduct')),
         generalOdorBaseline: formData.get('generalOdorBaseline') || '',
